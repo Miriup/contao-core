@@ -113,8 +113,8 @@ class Installer extends \Controller
 		$create = array();
 		$return = array();
 
-		$sql_current = $this->getFromDb();
 		$sql_target = $this->getFromDca();
+		$sql_current = $this->getFromDb( $sql_target );
 		$sql_legacy = $this->getFromFile();
 
 		// Manually merge the legacy definitions (see #4766)
@@ -419,10 +419,14 @@ class Installer extends \Controller
 	 *
 	 * @return array An array of tables and fields
 	 */
-	public function getFromDb()
+	public function getFromDb(array $dca_tables = NULL)
 	{
 		$this->import('Database');
-		$tables = preg_grep('/^tl_/', $this->Database->listTables(null, true));
+		$existing_tables = $this->Database->listTables(null, true);
+		$tables = array_merge(
+			preg_grep('/^tl_/',$existing_tables),
+			array_intersect(array_keys($dca_tables),$existing_tables)
+		);
 
 		if (empty($tables))
 		{
