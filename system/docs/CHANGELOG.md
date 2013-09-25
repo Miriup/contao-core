@@ -41,6 +41,10 @@ Apply the width and height to the audio player as well (see #6114).
 ### Fixed
 Do not exit after a template has been output (see #5570).
 
+### New
+If you are running Contao via an SSL proxy server, you can now set the proxy
+server domain in the back end settings (see #4615).
+
 ### Changed
 Drop the database query cache (see #6070). This renders `executeUncached()` and
 `executeCached()` deprecated. Use `execute()` instead.
