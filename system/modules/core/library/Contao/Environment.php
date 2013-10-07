@@ -296,7 +296,7 @@ class Environment
 	 */
 	protected static function ssl()
 	{
-		return ($_SERVER['SSL_SESSION_ID'] || $_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1);
+		return ($_SERVER['SSL_SESSION_ID'] || $_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] == 1 || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' );
 	}
 
 
